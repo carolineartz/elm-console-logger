@@ -1,20 +1,21 @@
 {
-  "name": "redux-logger",
-  "version": "3.0.6",
-  "description": "Logger for Redux",
-  "main": "dist/redux-logger.js",
-  "module": "dist/redux-logger.es.js",
-  "jsnext:main": "dist/redux-logger.es.js",
+  "name": "elm-console-logger",
+  "version": "1.0",
+  "description": "Console logger for Elm",
+  "main": "dist/elm-console-logger.js",
+  "module": "dist/elm-console-logger.es.js",
+  "jsnext:main": "dist/elm-console-logger.es.js",
   "scripts": {
     "lint": "eslint src",
     "test": "npm run lint && npm run spec",
-    "spec": "nyc --all --silent --require babel-core/register mocha --plugins transform-inline-environment-variables --recursive spec/*.spec.js",
+    "spec":
+      "nyc --all --silent --require babel-core/register mocha --plugins transform-inline-environment-variables --recursive spec/*.spec.js",
     "spec:watch": "npm run spec -- --watch",
     "coverage": "nyc report",
     "coverage:html": "nyc report --reporter=html && http-server -p 8077 ./coverage -o",
     "coverage:production": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "clean": "rimraf dist",
-    "uglify": "uglifyjs dist/redux-logger.js -cm -o dist/redux-logger.js",
+    "uglify": "uglifyjs dist/elm-console-logger.js -cm -o dist/elm-console-logger.js",
     "build": "rollup -c && npm run uglify",
     "precommit": "npm test && npm run lint",
     "prepublish": "npm run clean && npm test && npm run lint && npm run build"
@@ -30,36 +31,20 @@
     }
   },
   "nyc": {
-    "exclude": [
-      "node_modules",
-      "spec",
-      "example",
-      "lib",
-      "dist",
-      "coverage",
-      "rollup.config.js"
-    ]
+    "exclude": ["node_modules", "spec", "example", "lib", "dist", "coverage", "rollup.config.js"]
   },
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/theaqua/redux-logger.git"
+    "url": "git+https://github.com/carolineartz/elm-console-logger.git"
   },
-  "keywords": [
-    "redux",
-    "logger",
-    "redux-logger",
-    "middleware"
-  ],
-  "author": "Eugene Rodionov (https://github.com/theaqua)",
+  "keywords": ["elm", "logger", "elm-console-logger"],
+  "author": "Caroline Artz (https://github.com/carolineartz)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/theaqua/redux-logger/issues"
+    "url": "https://github.com/carolineartz/elm-console-logger/issues"
   },
-  "homepage": "https://github.com/theaqua/redux-logger#readme",
+  "homepage": "https://github.com/carolineartz/elm-console-logger#readme",
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -76,6 +61,7 @@
     "husky": "^0.13.2",
     "mocha": "3.1.2",
     "nyc": "9.0.1",
+    "prettier": "^1.13.7",
     "redux": "^3.6.0",
     "rimraf": "^2.6.1",
     "rollup": "^0.41.6",

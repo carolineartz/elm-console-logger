@@ -1,6 +1,6 @@
-import printBuffer from './core';
-import { timer } from './helpers';
-import defaults from './defaults';
+import printBuffer from "./core";
+import { timer } from "./helpers";
+import defaults from "./defaults";
 /* eslint max-len: ["error", 110, { "ignoreComments": true }] */
 /**
  * Creates logger with following options
@@ -30,11 +30,11 @@ function createLogger(options = {}) {
     errorTransformer,
     predicate,
     logErrors,
-    diffPredicate,
+    diffPredicate
   } = loggerOptions;
 
   // Return if 'console' object is not defined
-  if (typeof logger === 'undefined') {
+  if (typeof logger === "undefined") {
     return () => next => action => next(action);
   }
 
@@ -64,9 +64,9 @@ const store = createStore(
 
   const logBuffer = [];
 
-  return ({ getState }) => next => (action) => {
+  return ({ getState }) => next => action => {
     // Exit early if predicate function returns 'false'
-    if (typeof predicate === 'function' && !predicate(getState, action)) {
+    if (typeof predicate === "function" && !predicate(getState, action)) {
       return next(action);
     }
 
@@ -93,9 +93,10 @@ const store = createStore(
     logEntry.took = timer.now() - logEntry.started;
     logEntry.nextState = stateTransformer(getState());
 
-    const diff = loggerOptions.diff && typeof diffPredicate === 'function'
-      ? diffPredicate(getState, action)
-      : loggerOptions.diff;
+    const diff =
+      loggerOptions.diff && typeof diffPredicate === "function"
+        ? diffPredicate(getState, action)
+        : loggerOptions.diff;
 
     printBuffer(logBuffer, Object.assign({}, loggerOptions, { diff }));
     logBuffer.length = 0;
@@ -107,7 +108,7 @@ const store = createStore(
 
 // eslint-disable-next-line consistent-return
 const defaultLogger = ({ dispatch, getState } = {}) => {
-  if (typeof dispatch === 'function' || typeof getState === 'function') {
+  if (typeof dispatch === "function" || typeof getState === "function") {
     return createLogger()({ dispatch, getState });
   }
   // eslint-disable-next-line no-console

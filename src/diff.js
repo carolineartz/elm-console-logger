@@ -1,23 +1,23 @@
-import differ from 'deep-diff';
+import differ from "deep-diff";
 
 // https://github.com/flitbit/diff#differences
 const dictionary = {
   E: {
-    color: '#2196F3',
-    text: 'CHANGED:',
+    color: "#2196F3",
+    text: "CHANGED:"
   },
   N: {
-    color: '#4CAF50',
-    text: 'ADDED:',
+    color: "#4CAF50",
+    text: "ADDED:"
   },
   D: {
-    color: '#F44336',
-    text: 'DELETED:',
+    color: "#F44336",
+    text: "DELETED:"
   },
   A: {
-    color: '#2196F3',
-    text: 'ARRAY:',
-  },
+    color: "#2196F3",
+    text: "ARRAY:"
+  }
 };
 
 export function style(kind) {
@@ -28,14 +28,14 @@ export function render(diff) {
   const { kind, path, lhs, rhs, index, item } = diff;
 
   switch (kind) {
-    case 'E':
-      return [path.join('.'), lhs, '→', rhs];
-    case 'N':
-      return [path.join('.'), rhs];
-    case 'D':
-      return [path.join('.')];
-    case 'A':
-      return [`${path.join('.')}[${index}]`, item];
+    case "E":
+      return [path.join("."), lhs, "→", rhs];
+    case "N":
+      return [path.join("."), rhs];
+    case "D":
+      return [path.join(".")];
+    case "A":
+      return [`${path.join(".")}[${index}]`, item];
     default:
       return [];
   }
@@ -46,28 +46,28 @@ export default function diffLogger(prevState, newState, logger, isCollapsed) {
 
   try {
     if (isCollapsed) {
-      logger.groupCollapsed('diff');
+      logger.groupCollapsed("diff");
     } else {
-      logger.group('diff');
+      logger.group("diff");
     }
   } catch (e) {
-    logger.log('diff');
+    logger.log("diff");
   }
 
   if (diff) {
-    diff.forEach((elem) => {
+    diff.forEach(elem => {
       const { kind } = elem;
       const output = render(elem);
 
       logger.log(`%c ${dictionary[kind].text}`, style(kind), ...output);
     });
   } else {
-    logger.log('—— no diff ——');
+    logger.log("—— no diff ——");
   }
 
   try {
     logger.groupEnd();
   } catch (e) {
-    logger.log('—— diff end —— ');
+    logger.log("—— diff end —— ");
   }
 }
